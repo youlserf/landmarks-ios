@@ -1,51 +1,54 @@
 //
-//  ContentView.swift
-//  Learn
+//  LandmarkDetail.swift
+//  Landmarks
 //
-//  Created by youlserf on 4/01/23.
+//  Created by youlserf on 6/01/23.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct LandmarkDetail: View {
+    var landmark: Landmark
+    
     var body: some View {
-        VStack {
-            MapView()
+        ScrollView {
+            MapView(coordinate: landmark.locationCoordinate)
                 .ignoresSafeArea(edges: .top
                 )
                 .frame(height: 300)
             
-            CircleImage()
+            CircleImage(image: landmark.image)
                 .offset(y: -130)
                 .padding(.bottom, -130)
             
             VStack(alignment: .leading) {
-                Text("Ronnie Coleman")
+                Text(landmark.name)
                     .font(.title)
                 HStack {
-                    Text("Lightweight Baby")
+                    Text(landmark.park)
                     Spacer()
-                    Text("US")
+                    Text(landmark.state)
                 }
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 
                 Divider()
                 
-                Text("About Ronnie Coleman")
+                Text("About \(landmark.name)")
                     .font(.title2)
-                Text("Winner of 26 IFBB professional titles, he is also renowned for his combination of size and conditioning, dominant body-parts and extremely heavy workouts, making him the strongest bodybuilder and Mr. Olympia of all time. Monroe, Louisiana, U.S.")
+                Text(landmark.description)
                 
             }
             .padding()
-            Spacer()
         }
+        .navigationTitle(landmark.name)
+        .navigationBarTitleDisplayMode(.inline)
+
     }
 }
 
-
-struct ContentView_Previews: PreviewProvider {
+struct LandmarkDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        LandmarkDetail(landmark: landmarks [0])
     }
 }
